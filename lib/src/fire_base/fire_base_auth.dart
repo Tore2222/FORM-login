@@ -9,7 +9,7 @@ class FirAuth {
     _fireBaseAuth
         .createUserWithEmailAndPassword(email: email, password: pass)
         .then((user) {
-      _createUser(user as String, name, phone, onSuccess, onRegisterError);
+      _createUser(user.user!.uid, name, phone, onSuccess, onRegisterError);
     }).catchError((err) {
       print("err: " + err.toString());
       _onSignUpErr(err.code, onRegisterError);

@@ -1,13 +1,15 @@
+import 'package:clonetaxi/src/resources/widget/login_page.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
 
 import '../../blocs/auth_bloc.dart';
 
 import '../dialog/loading_dialog.dart';
 import '../dialog/msg_dilog.dart';
-import 'home_page.dart';
+import 'homepage.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -15,19 +17,17 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-  AuthBloc authBloc = new AuthBloc();
+AuthBloc authBloc = new AuthBloc();
 
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _passController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
+TextEditingController _nameController = new TextEditingController();
+TextEditingController _emailController = new TextEditingController();
+TextEditingController _passController = new TextEditingController();
+TextEditingController _phoneController = new TextEditingController();
 
-  @override
-  void dispose() {
-    authBloc.dispose();
-  
-  }
-
+@override
+void dispose() {
+  authBloc.dispose();
+}
 
 class _RegisterPageState extends State<RegisterPage> {
   @override
@@ -43,7 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 140,
               ),
-              Image.asset('ic_car_red.png'),
+              Image.asset('assets/images/ic_car_red.png'),
+              //Image.asset("assets/images/ic_fight.png"),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 6),
                 child: Text(
@@ -52,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Text(
-                "Signup with iCab in simple steps",
+                "Signup with iHome in simple steps",
                 style: TextStyle(fontSize: 16, color: Color(0xff606470)),
               ),
               Padding(
@@ -63,11 +64,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           controller: _nameController,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                           decoration: InputDecoration(
-                              errorText:
-                                  snapshot.hasError ? snapshot.error.toString() : null,
+                              errorText: snapshot.hasError
+                                  ? snapshot.error.toString()
+                                  : null,
                               labelText: "Name",
                               prefixIcon: Container(
-                                  width: 50, child: Image.asset("ic_user.png")),
+                                  width: 50,
+                                  child:
+                                      Image.asset("assets/images/ic_user.png")),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xffCED0D2), width: 1),
@@ -82,9 +86,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         style: TextStyle(fontSize: 18, color: Colors.black),
                         decoration: InputDecoration(
                             labelText: "Phone Number",
-                            errorText: snapshot.hasError?snapshot.error.toString():null,
+                            errorText: snapshot.hasError
+                                ? snapshot.error.toString()
+                                : null,
                             prefixIcon: Container(
-                                width: 50, child: Image.asset("ic_phone.png")),
+                                width: 50,
+                                child:
+                                    Image.asset("assets/images/ic_phone.png")),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xffCED0D2), width: 1),
@@ -100,10 +108,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                           decoration: InputDecoration(
                               labelText: "Email",
-                              errorText:
-                                  snapshot.hasError ? snapshot.error.toString() : null,
+                              errorText: snapshot.hasError
+                                  ? snapshot.error.toString()
+                                  : null,
                               prefixIcon: Container(
-                                  width: 50, child: Image.asset("ic_mail.png")),
+                                  width: 50,
+                                  child:
+                                      Image.asset("assets/images/ic_mail.png")),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xffCED0D2), width: 1),
@@ -118,11 +129,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         style: TextStyle(fontSize: 18, color: Colors.black),
                         decoration: InputDecoration(
-                            errorText:
-                                snapshot.hasError ? snapshot.error.toString() : null,
+                            errorText: snapshot.hasError
+                                ? snapshot.error.toString()
+                                : null,
                             labelText: "Password",
                             prefixIcon: Container(
-                                width: 50, child: Image.asset("ic_lock.png")),
+                                width: 50,
+                                child:
+                                    Image.asset("assets/images/ic_lock.png")),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xffCED0D2), width: 1),
@@ -135,13 +149,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
-                    onPressed: _onSignUpClicked,
-                    child: Text(
-                      "Signup",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      onPressed: _onSignUpClicked,
+                      child: Text(
+                        "Signup",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(108, 47, 50, 217),
+                        backgroundColor: Colors.greenAccent[700],
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(6))),
                       )),
@@ -155,6 +169,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: TextStyle(color: Color(0xff606470), fontSize: 16),
                       children: <TextSpan>[
                         TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              },
                             text: "Login now",
                             style: TextStyle(
                                 color: Color(0xff3277D8), fontSize: 16))
@@ -168,7 +189,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  
   _onSignUpClicked() {
     var isValid = authBloc.isValid(_nameController.text, _emailController.text,
         _passController.text, _phoneController.text);
@@ -179,11 +199,14 @@ class _RegisterPageState extends State<RegisterPage> {
       authBloc.signUp(_emailController.text, _passController.text,
           _phoneController.text, _nameController.text, () {
         LoadingDialog.hideLoadingDialog(context);
+        //LoadingDialog.showLoadingDialog(context, "SignIn Success");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+        MsgDialog.showMsgDialog(context, "", "SignUp Succces");
       }, (msg) {
         LoadingDialog.hideLoadingDialog(context);
-        MsgDialog.showMsgDialog(context, "Sign-In", msg);
+        MsgDialog.showMsgDialog(context, "Sign-Up ", msg);
+
         // show msg dialog
       });
     }

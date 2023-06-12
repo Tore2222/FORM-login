@@ -5,17 +5,26 @@ class MsgDialog {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text(title),
-            content: Text(msg),
-            actions: [
-              new TextButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop(MsgDialog);
-                },
-              ),
-            ],
+        title: Text(title),
+        content: Text(msg),
+        actions: [
+          new TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop(MsgDialog);
+            },
           ),
+        ],
+      ),
+    );
+  }
+
+  static void showMsgDialog1(BuildContext context, String title) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+      ),
     );
   }
 }

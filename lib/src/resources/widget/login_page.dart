@@ -1,6 +1,7 @@
 import 'package:clonetaxi/helper/asset_helper.dart';
 import 'package:clonetaxi/src/blocs/auth_bloc.dart';
 import 'package:clonetaxi/src/resources/widget/register_page.dart';
+import 'package:clonetaxi/src/resources/widget/register_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,8 @@ import '../../app.dart';
 
 import '../dialog/loading_dialog.dart';
 import '../dialog/msg_dilog.dart';
-import 'home_page.dart';
+import 'fogot_password_page.dart';
+import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -33,7 +35,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 140,
               ),
-              Image.asset('ic_car_green.png'),
+              Image.asset("assets/images/ic_car_green.png"),
+              //Image.asset("assets/images/ic_fight.png"),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 6),
                 child: Text(
@@ -42,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Text(
-                "Login to continue using iCab",
+                "Login to continue using iHome",
                 style: TextStyle(fontSize: 16, color: Color(0xff606470)),
               ),
               Padding(
@@ -53,7 +56,8 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       labelText: "Email",
                       prefixIcon: Container(
-                          width: 50, child: Image.asset("ic_mail.png")),
+                          width: 50,
+                          child: Image.asset("assets/images/ic_mail.png")),
                       border: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Color(0xffCED0D2), width: 1),
@@ -67,20 +71,29 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                     labelText: "Password",
                     prefixIcon: Container(
-                        width: 50, child: Image.asset("ic_phone.png")),
+                        width: 50,
+                        child: Image.asset("assets/images/ic_phone.png")),
                     border: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color(0xffCED0D2), width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(6)))),
               ),
               Container(
-                constraints: BoxConstraints.loose(Size(double.infinity, 30)),
+                constraints: BoxConstraints.loose(Size(double.infinity, 50)),
                 alignment: AlignmentDirectional.centerEnd,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Text(
-                    "Forgot password?",
-                    style: TextStyle(fontSize: 16, color: Color(0xff606470)),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()));
+                    },
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(fontSize: 16, color: Color(0xff3277D8)),
+                    ),
                   ),
                 ),
               ),
@@ -90,14 +103,13 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
-                    
                       onPressed: _onLoginClick,
                       child: Text(
                         "Log In",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(109, 30, 33, 241),
+                        backgroundColor: Colors.greenAccent[700],
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(6))),
                       )),
@@ -134,10 +146,11 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoginClick() {
     String email = _emailController.text;
     String pass = _passController.text;
-    //var authBloc = Myapp
+    //var authBloc = Myapp.of(context).authBloc;
     LoadingDialog.showLoadingDialog(context, "Loading...");
     authBloc.signIn(email, pass, () {
       LoadingDialog.hideLoadingDialog(context);
+
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => HomePage()));
     }, (msg) {
